@@ -1,3 +1,0 @@
-{
-  apiAuthToken = "...";  # a DigitalOcean API auth token with write privileges.
-}
