@@ -36,6 +36,11 @@ with import ./common.nix;
       httpConfig = nginxConfig;
     };
 
+    users = {
+      mutableUsers = false;
+      extraUsers   = import ./users.keys.nix;
+    };
+
   } // (
     if enableHttps then {
       security.acme.certs.${host} = {
