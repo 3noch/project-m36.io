@@ -1,0 +1,5 @@
+result
+.*.nixops*
+
+dist/
+.stack-work/
