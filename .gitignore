@@ -1,5 +1,5 @@
 result
-.*.nixops*
+*.nixops-*
 
 dist/
 .stack-work/
