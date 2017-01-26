@@ -72,7 +72,7 @@ if [[ $deployment == --* ]]; then
   exit $?
 elif [ "$command" == ".shell" ]; then
   nix-shell -p "$nixops_version"
-elif [ ! -e "$state_file" ]; then
+elif [ ! -e "$state_file" ] && [ "$command" != "create" ]; then
   >&2 echo "You're trying to use a deployment that doesn't exist yet. Try running $0 $deployment create"
   exit 1
 else
