@@ -22,7 +22,7 @@ with import ./common.nix;
     nginxConfig = import ./nginx-config.nix {
       inherit config pkgs acmeChallengesDir enableHttps host hostRedirects;
       appRoot = "${project-m36-parts.src}/src/bin/ProjectM36/Server/WebSocket";
-      websocketServer = "http://localhost:${toString websocketPort}";
+      websocketServer = "http://127.0.0.1:${toString websocketPort}";
     };
 
     project-m36-parts = pkgs.callPackage ../project-m36.nix {};

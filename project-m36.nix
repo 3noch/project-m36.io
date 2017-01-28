@@ -3,8 +3,8 @@ let
   project-m36-nix = fetchFromGitHub {
     owner  = "3noch";
     repo   = "project-m36";
-    rev    = "df84953caf3370632c2b6351956c53648f6681a5";
-    sha256 = "0s7lfpa83wpbclrvkkn6qlwj56hifiab9dx1w6z0ks6bnllmav0i";
+    rev    = "d8c338507ce0ccd203cc0487847142685f9642bd";
+    sha256 = "1a937kz3i70k8rr1cqycnxpzwp7n2jl9p7ws9fh3gqzwza4jjrl5";
   };
 in {
   src = project-m36-nix;
