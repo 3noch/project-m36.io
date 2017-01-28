@@ -34,7 +34,7 @@ with import ./common.nix;
     };
 
     environment.systemPackages = with pkgs; [
-      gzip htop unzip nix-repl vim zip
+      gzip htop lsof unzip nix-repl vim zip
       project-m36
     ];
 
