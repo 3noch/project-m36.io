@@ -9,13 +9,21 @@
 , host                # host for this site
 , hostRedirects ? []  # list of hosts that redirect to the primary host
 , appRoot             # root directory to serve
+, websocketServer     # URL to websocket server to proxy wobsocket connections to.
 , enableHttps         # serve the site over HTTPS only?
 , acmeChallengesDir   # directory where ACME (Let's Encrypt) challenges are stored
 }:
 let
   rootUrl = (if enableHttps then "https" else "http") + "://" + host;
 
-  fullNginxConfig = if enableHttps then secureConfig else insecureConfig;
+  fullNginxConfig = ''
+    map $http_upgrade $connection_upgrade {
+      default upgrade;
+      ${"''"} close;
+    }
+
+    ${if enableHttps then secureConfig else insecureConfig}
+  '';
 
   secureConfig = ''
     server {
@@ -24,6 +32,10 @@ let
 
       location /.well-known/acme-challenge {
         root "${acmeChallengesDir}";
+      }
+
+      location / {
+        return 301 https://${host}$request_uri;
       }
     }
 
@@ -87,25 +99,32 @@ let
 
   serverPart = ''
     root "${appRoot}";
-    index index.html index.htm;
+    index index.html index.htm websocket-client.html;
     charset utf-8;
+
+    location /ws {
+        proxy_pass "${websocketServer}";
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+    }
 
     # 301 Redirect URLs with trailing /'s as per https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html
     #rewrite ^/(.*)/$ /$1 permanent;
 
     # Change // -> / for all URLs
-    merge_slashes off;
-    rewrite (.*)//+(.*) $1/$2 permanent;
+    #merge_slashes off;
+    #rewrite (.*)//+(.*) $1/$2 permanent;
 
     # Don't send the nginx version number in error pages and Server header
     server_tokens off;
 
     # Load configuration files from nginx-partials
-    include ${./nginx-partials}/*.conf;
+    #include ${./nginx-partials}/*.conf;
 
     # Misc settings
-    sendfile off;
-    client_max_body_size 100m;
+    #sendfile off;
+    #client_max_body_size 100m;
   '';
 
 in fullNginxConfig
