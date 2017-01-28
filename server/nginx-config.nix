@@ -98,15 +98,17 @@ let
   '';
 
   serverPart = ''
-    root "${appRoot}";
-    index index.html index.htm websocket-client.html;
-    charset utf-8;
-
-    location /ws {
+    location /ws/ {
         proxy_pass "${websocketServer}";
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection $connection_upgrade;
+    }
+
+    location / {
+      root "${appRoot}";
+      index index.html index.htm websocket-client.html;
+      charset utf-8;
     }
 
     # 301 Redirect URLs with trailing /'s as per https://webmasters.googleblog.com/2010/04/to-slash-or-not-to-slash.html
