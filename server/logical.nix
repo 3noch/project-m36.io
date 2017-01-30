@@ -49,6 +49,7 @@ with import ./common.nix;
       wantedBy      = [ "multi-user.target" "nginx" ];
       after         = [ "network.target" ];
       serviceConfig = {
+        Restart = "on-failure";
         ExecStart = pkgs.writeScript "start-websocket-server" ''
           #!${pkgs.bash}/bin/bash
           HOME=/root ${project-m36}/bin/project-m36-websocket-server --port ${toString websocketPort} -n test --timeout 5000000
