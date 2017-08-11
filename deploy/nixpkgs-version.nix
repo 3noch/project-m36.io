@@ -9,6 +9,6 @@
 #   5. Get SHA256 hash of URL contents with `nix-prefetch-url --unpack <url>`.
 
 {
-  url    = "https://d3g5gsiof5omrk.cloudfront.net/nixpkgs/nixpkgs-17.09pre110532.50831d543d/nixexprs.tar.xz";
-  sha256 = "0ffrgbk6k2842v8pdnbvjnvzd14lk1pparjgx74wlq4028dppm6h";
+  url    = "https://d3g5gsiof5omrk.cloudfront.net/nixos/17.03/nixos-17.03.1665.055e5c3578/nixexprs.tar.xz";
+  sha256 = "08hmd4s9bvfha1q4jd1qy1lh3iilk80cfpdsihanhfqns2iydkcs";
 }
