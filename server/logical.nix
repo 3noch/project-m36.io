@@ -57,10 +57,7 @@ with import ./common.nix;
       };
     };
 
-    users = {
-      mutableUsers = false;
-      extraUsers   = import ./users.keys.nix;
-    };
+    users.users = import ./users.keys.nix;
 
   } // (
     if enableHttps then {

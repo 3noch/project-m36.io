@@ -12,8 +12,8 @@ let
   project-m36-src = projPkgs.fetchFromGitHub {
     owner  = "agentm";
     repo   = "project-m36";
-    rev    = "717dacaf877eaa3ebb6d81eb22e86c6316ea3e0a";
-    sha256 = "0967zpcc352b90xsagax93dpghxmqdxgyim74qzbdn37aac61z28";
+    rev    = "64ae3e68a34ec1ce4ebfa8f0c77ebc2917ded166";
+    sha256 = "1xr71zmdmrhmrdr7s9zlgljbb8xqgm2j3lxb5d53sprpvmx2zmdd";
   };
 
   haskellPkgs = projPkgs.haskellPackages.override {
